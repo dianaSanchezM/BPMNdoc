@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bonitaConnector="http://www.bonitasoft.org/studio/connector/definition/6.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di_1="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:model="http://www.omg.org/spec/BPMN/20100524/MODEL" xsi:schemaLocation="schemaLocation http://www.omg.org/spec/BPMN/20100524/MODEL schemas/BPMN20.xsd" exporter="BonitaSoft" exporterVersion="7.6.1" expressionLanguage="http://groovy.apache.org/" targetNamespace="http://bonitasoft.com/_WL008BF5EeimJucVijFKeQ">
+  <model:collaboration id="_WL008BF5EeimJucVijFKeQ">
+    <model:documentation>El proceso tiene como objetivo aprobar o rechazar solicitudes de afiliaciones y traslados del Fondo de Pensiones Colombiana</model:documentation>
+    <model:participant id="_ogCrABGsEei6OfJSLCANWw" name="Solicitud de afiliacion" processRef="_WL008RF5EeimJucVijFKeQ"/>
+    <model:participant id="_WL01GxF5EeimJucVijFKeQ" name="Employee actor">
+      <model:documentation>This is an example of actor that is mapped to any ACME users</model:documentation>
+    </model:participant>
+  </model:collaboration>
+  <model:process id="_WL008RF5EeimJucVijFKeQ" name="Solicitud de afiliacion">
+    <model:documentation>El proceso tiene como objetivo aprobar o rechazar solicitudes de afiliaciones y traslados del Fondo de Pensiones Colombiana</model:documentation>
+    <model:ioSpecification id="_ogCrAhGsEei6OfJSLCANWw">
+      <model:dataInput id="_ogCrAxGsEei6OfJSLCANWw" itemSubjectRef="_Dz3wwBF6EeimJucVijFKeQ"/>
+      <model:dataInput id="_ogCrCRGsEei6OfJSLCANWw" itemSubjectRef="_4Vk1wBGrEei6OfJSLCANWw"/>
+      <model:inputSet id="_ogCrBBGsEei6OfJSLCANWw">
+        <model:dataInputRefs>_ogCrAxGsEei6OfJSLCANWw</model:dataInputRefs>
+      </model:inputSet>
+      <model:inputSet id="_ogCrChGsEei6OfJSLCANWw">
+        <model:dataInputRefs>_ogCrCRGsEei6OfJSLCANWw</model:dataInputRefs>
+      </model:inputSet>
+      <model:outputSet id="_ogCrDhGsEei6OfJSLCANWw"/>
+    </model:ioSpecification>
+    <model:laneSet id="Solicitud de afiliacion_laneSet">
+      <model:lane id="_WL008hF5EeimJucVijFKeQ" name="Lavado de activos">
+        <model:documentation>Se encarga de validar y aporbar o rechazar las solicitudes en el sistema AML</model:documentation>
+        <model:flowNodeRef>_WL008xF5EeimJucVijFKeQ</model:flowNodeRef>
+        <model:flowNodeRef>_WL00-BF5EeimJucVijFKeQ</model:flowNodeRef>
+        <model:flowNodeRef>_kAv9YBF5EeimJucVijFKeQ</model:flowNodeRef>
+        <model:flowNodeRef>_qLOioBF5EeimJucVijFKeQ</model:flowNodeRef>
+        <model:flowNodeRef>_y6YEEBF5EeimJucVijFKeQ</model:flowNodeRef>
+      </model:lane>
+      <model:lane id="_fTHwoBF5EeimJucVijFKeQ" name="Afiliaciones">
+        <model:documentation>Se encargan de crear las cuentas de los nuevos usuarios</model:documentation>
+        <model:flowNodeRef>_lEQo0BF5EeimJucVijFKeQ</model:flowNodeRef>
+        <model:flowNodeRef>_nFnckBF5EeimJucVijFKeQ</model:flowNodeRef>
+      </model:lane>
+    </model:laneSet>
+    <model:dataObject id="DataObject_ogCrARGsEei6OfJSLCANWw_Dz3wwBF6EeimJucVijFKeQ" name="solicitud" isCollection="false" itemSubjectRef="_Dz3wwBF6EeimJucVijFKeQ"/>
+    <model:dataObject id="DataObject_ogCrCBGsEei6OfJSLCANWw_4Vk1wBGrEei6OfJSLCANWw" name="aprobacion" isCollection="false" itemSubjectRef="_4Vk1wBGrEei6OfJSLCANWw"/>
+    <model:startEvent id="_WL008xF5EeimJucVijFKeQ" name="Datos del solicitante">
+      <model:documentation>El porceso inicia generando el formulario para solicitar la informacion </model:documentation>
+    </model:startEvent>
+    <model:userTask id="_WL00-BF5EeimJucVijFKeQ" name="Validacion y aprobacion AML">
+      <model:documentation>Un agente del area de Lavado de activos se encarga de verificar que los datos sean validos y asi, aprobar o rechazar la solicitud</model:documentation>
+    </model:userTask>
+    <model:exclusiveGateway id="_kAv9YBF5EeimJucVijFKeQ" name="¿Fue aprobada?" default="_qLYToBF5EeimJucVijFKeQ"/>
+    <model:serviceTask id="_qLOioBF5EeimJucVijFKeQ" name="Notificaciones">
+      <model:documentation>En esta actividad se envian los correos al asesor comercial y al cliente notificando que la solicitud fue rechazada</model:documentation>
+    </model:serviceTask>
+    <model:endEvent id="_y6YEEBF5EeimJucVijFKeQ" name="Proceso terminado por rechazo">
+      <model:documentation>La solicitud es rechazada debido a que los datos no cumplen con las condiciones</model:documentation>
+    </model:endEvent>
+    <model:serviceTask id="_lEQo0BF5EeimJucVijFKeQ" name="Crear cuentas">
+      <model:documentation>En el sistema se crea la cuenta para el usuario nuevo</model:documentation>
+    </model:serviceTask>
+    <model:endEvent id="_nFnckBF5EeimJucVijFKeQ" name="Nuevo cliente registrado">
+      <model:documentation>La solicitud es aprobada y la cuenta del usuario ha sido creada</model:documentation>
+    </model:endEvent>
+    <model:sequenceFlow id="_WL01GBF5EeimJucVijFKeQ" name="" sourceRef="_WL008xF5EeimJucVijFKeQ" targetRef="_WL00-BF5EeimJucVijFKeQ"/>
+    <model:sequenceFlow id="_jsoukBF5EeimJucVijFKeQ" name="" sourceRef="_WL00-BF5EeimJucVijFKeQ" targetRef="_kAv9YBF5EeimJucVijFKeQ"/>
+    <model:sequenceFlow id="_lEjjwBF5EeimJucVijFKeQ" name="Solicitud aprobada" sourceRef="_kAv9YBF5EeimJucVijFKeQ" targetRef="_lEQo0BF5EeimJucVijFKeQ">
+      <model:conditionExpression xsi:type="model:tFormalExpression" id="_ogEgMBGsEei6OfJSLCANWw" evaluatesToTypeRef="java:java.lang.Boolean" language="http://www.w3.org/1999/XPath">aprobacion==true</model:conditionExpression>
+    </model:sequenceFlow>
+    <model:sequenceFlow id="_nFncmRF5EeimJucVijFKeQ" name="" sourceRef="_lEQo0BF5EeimJucVijFKeQ" targetRef="_nFnckBF5EeimJucVijFKeQ"/>
+    <model:sequenceFlow id="_qLYToBF5EeimJucVijFKeQ" name="Solicitud rechazada" sourceRef="_kAv9YBF5EeimJucVijFKeQ" targetRef="_qLOioBF5EeimJucVijFKeQ"/>
+    <model:sequenceFlow id="_y6h1EBF5EeimJucVijFKeQ" name="" sourceRef="_qLOioBF5EeimJucVijFKeQ" targetRef="_y6YEEBF5EeimJucVijFKeQ"/>
+  </model:process>
+  <model:itemDefinition id="_Dz3wwBF6EeimJucVijFKeQ" structureRef="java:com.company.model.SOLICITUD"/>
+  <model:itemDefinition id="_4Vk1wBGrEei6OfJSLCANWw" structureRef="java:java.lang.Boolean"/>
+  <di:BPMNDiagram name="Solicitud">
+    <di:BPMNPlane id="plane__WL008BF5EeimJucVijFKeQ" bpmnElement="_WL008BF5EeimJucVijFKeQ">
+      <di:BPMNShape id="_WL01NhF5EeimJucVijFKeQ" bpmnElement="_ogCrABGsEei6OfJSLCANWw" isHorizontal="true">
+        <dc:Bounds height="500.0" width="1166.0" x="0.0" y="0.0"/>
+      </di:BPMNShape>
+      <di:BPMNShape id="_WL01ORF5EeimJucVijFKeQ" bpmnElement="_WL008hF5EeimJucVijFKeQ" isHorizontal="true">
+        <dc:Bounds height="250.0" width="1136.0" x="30.0" y="0.0"/>
+      </di:BPMNShape>
+      <di:BPMNShape id="_WL01PxF5EeimJucVijFKeQ" bpmnElement="_WL008xF5EeimJucVijFKeQ">
+        <dc:Bounds height="30.0" width="30.0" x="143.0" y="99.0"/>
+        <di:BPMNLabel id="_ogDSERGsEei6OfJSLCANWw" labelStyle="_ogDSEBGsEei6OfJSLCANWw">
+          <dc:Bounds height="15.0" width="106.0" x="105.0" y="134.0"/>
+        </di:BPMNLabel>
+      </di:BPMNShape>
+      <di:BPMNShape id="_WL01PBF5EeimJucVijFKeQ" bpmnElement="_WL00-BF5EeimJucVijFKeQ">
+        <dc:Bounds height="83.0" width="166.0" x="309.0" y="86.0"/>
+      </di:BPMNShape>
+      <di:BPMNShape id="_kAv9ZRF5EeimJucVijFKeQ" bpmnElement="_kAv9YBF5EeimJucVijFKeQ">
+        <dc:Bounds height="43.0" width="43.0" x="621.0" y="86.0"/>
+        <di:BPMNLabel id="_ogDSExGsEei6OfJSLCANWw" labelStyle="_ogDSEBGsEei6OfJSLCANWw">
+          <dc:Bounds height="15.0" width="82.0" x="601.0" y="134.0"/>
+        </di:BPMNLabel>
+      </di:BPMNShape>
+      <di:BPMNShape id="_qLOiqhF5EeimJucVijFKeQ" bpmnElement="_qLOioBF5EeimJucVijFKeQ">
+        <dc:Bounds height="79.0" width="158.0" x="765.0" y="86.0"/>
+      </di:BPMNShape>
+      <di:BPMNShape id="_y6YEFRF5EeimJucVijFKeQ" bpmnElement="_y6YEEBF5EeimJucVijFKeQ">
+        <dc:Bounds height="30.0" width="30.0" x="1024.0" y="93.0"/>
+        <di:BPMNLabel id="_ogD5IRGsEei6OfJSLCANWw" labelStyle="_ogDSEBGsEei6OfJSLCANWw">
+          <dc:Bounds height="15.0" width="165.0" x="957.0" y="128.0"/>
+        </di:BPMNLabel>
+      </di:BPMNShape>
+      <di:BPMNShape id="_fTRhoBF5EeimJucVijFKeQ" bpmnElement="_fTHwoBF5EeimJucVijFKeQ" isHorizontal="true">
+        <dc:Bounds height="250.0" width="1136.0" x="30.0" y="250.0"/>
+      </di:BPMNShape>
+      <di:BPMNShape id="_lEaZ0BF5EeimJucVijFKeQ" bpmnElement="_lEQo0BF5EeimJucVijFKeQ">
+        <dc:Bounds height="70.0" width="140.0" x="573.0" y="354.0"/>
+      </di:BPMNShape>
+      <di:BPMNShape id="_nFnclRF5EeimJucVijFKeQ" bpmnElement="_nFnckBF5EeimJucVijFKeQ">
+        <dc:Bounds height="30.0" width="30.0" x="813.0" y="374.0"/>
+        <di:BPMNLabel id="_ogD5IxGsEei6OfJSLCANWw" labelStyle="_ogDSEBGsEei6OfJSLCANWw">
+          <dc:Bounds height="15.0" width="129.0" x="764.0" y="409.0"/>
+        </di:BPMNLabel>
+      </di:BPMNShape>
+      <di:BPMNEdge id="_WL01ThF5EeimJucVijFKeQ" bpmnElement="_WL01GBF5EeimJucVijFKeQ">
+        <di_1:waypoint x="173.0" y="120.0"/>
+        <di_1:waypoint x="309.0" y="120.0"/>
+        <di:BPMNLabel/>
+      </di:BPMNEdge>
+      <di:BPMNEdge id="_jsoukxF5EeimJucVijFKeQ" bpmnElement="_jsoukBF5EeimJucVijFKeQ">
+        <di_1:waypoint x="475.0" y="117.0"/>
+        <di_1:waypoint x="621.0" y="117.0"/>
+        <di:BPMNLabel/>
+      </di:BPMNEdge>
+      <di:BPMNEdge id="_lEjjwxF5EeimJucVijFKeQ" bpmnElement="_lEjjwBF5EeimJucVijFKeQ">
+        <di_1:waypoint x="642.0" y="129.0"/>
+        <di_1:waypoint x="642.0" y="354.0"/>
+        <di:BPMNLabel/>
+      </di:BPMNEdge>
+      <di:BPMNEdge id="_nFncnBF5EeimJucVijFKeQ" bpmnElement="_nFncmRF5EeimJucVijFKeQ">
+        <di_1:waypoint x="713.0" y="389.0"/>
+        <di_1:waypoint x="813.0" y="389.0"/>
+        <di:BPMNLabel/>
+      </di:BPMNEdge>
+      <di:BPMNEdge id="_qLYToxF5EeimJucVijFKeQ" bpmnElement="_qLYToBF5EeimJucVijFKeQ">
+        <di_1:waypoint x="664.0" y="116.0"/>
+        <di_1:waypoint x="765.0" y="116.0"/>
+        <di:BPMNLabel/>
+      </di:BPMNEdge>
+      <di:BPMNEdge id="_y6h1ExF5EeimJucVijFKeQ" bpmnElement="_y6h1EBF5EeimJucVijFKeQ">
+        <di_1:waypoint x="923.0" y="116.0"/>
+        <di_1:waypoint x="1024.0" y="116.0"/>
+        <di:BPMNLabel/>
+      </di:BPMNEdge>
+    </di:BPMNPlane>
+    <di:BPMNLabelStyle id="_ogDSEBGsEei6OfJSLCANWw">
+      <dc:Font isBold="false" isItalic="false" isStrikeThrough="false" isUnderline="false" name="Segoe UI" size="9.0"/>
+    </di:BPMNLabelStyle>
+  </di:BPMNDiagram>
+</model:definitions>
